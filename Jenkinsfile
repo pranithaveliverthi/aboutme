@@ -12,7 +12,7 @@ import java.net.URL
 node('site'){
 ws('/var/www/html'){ 
    stage('Preparation') { 
-      checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'WipeWorkspace']], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'GIT', url: 'https://github.com/naveenkashyapdv/my-site.git']]])
+      checkout changelog: false, poll: false, scm: [$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'WipeWorkspace'], [$class: 'CleanBeforeCheckout']], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'GIT', url: 'https://github.com/naveenkashyapdv/my-site.git']]]
      }
      stage('Preparation')
          sh 'service nginx restart'
